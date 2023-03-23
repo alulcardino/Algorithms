@@ -1,6 +1,6 @@
 package com.romanmikhailenko.algorithms
 
-class QuickFind(n: Int) {
+class QuickUnion(n : Int) {
     private val id = IntArray(n)
 
     init {
@@ -9,18 +9,20 @@ class QuickFind(n: Int) {
         }
     }
 
+    private fun root(i : Int) : Int {
+        var temp = i;
+        while (temp != id[i]) {
+            temp = id[i]
+        }
+        return temp;
+    }
+
     fun connected(p: Int, q: Int) : Boolean {
-        return (id[p] == id[q])
+        return root(p) == root(q)
     }
 
     fun union(p: Int, q: Int) {
-        val pId = id[p]
-        val qId = id[q]
-        for (i in id.indices) {
-            if (id[i] == pId) {
-                id[i] = qId
-            }
-         }
+        id[root(p)] = root(q)
     }
 
 
